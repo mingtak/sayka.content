@@ -3,6 +3,7 @@
 
 from sayka.content import _
 from zope import schema
+from plone.app.textfield import RichText
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
@@ -52,7 +53,8 @@ class INews(Interface):
     description = schema.Text(
         title=(u'Description'),
         required=False
-    )  
+    )
+
     cover = NamedBlobImage(
         title=_(u"Cover Image."),
         description=_(u"Cover image."),
