@@ -115,5 +115,13 @@
         permission='zope2.View'
       />
 
+    <browser:page
+        name='no_flower'
+        for='plone.app.contenttypes.interfaces.IDocument'
+        template='template/no_flower.pt'
+        layer="sayka.content.interfaces.ISaykaContentLayer"
+        permission='zope2.View'
+      />
+
 </configure>
 
