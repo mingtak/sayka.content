@@ -1,0 +1,4 @@
+graft src/sayka
+graft docs
+include *.rst
+global-exclude *.pyc

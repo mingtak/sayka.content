@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="sayka.content">
+<body>
+
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+  <div metal:define-macro="text-field-view"
+      id="parent-fieldname-text" class="stx"
+      tal:define="text view/text"
+      tal:condition="text"
+      tal:attributes="class view/text_class">
+    <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+  </div>
+
+  <metal:listingmacro define-macro="listing">
+    <tal:results define="batch view/batch">
+      <tal:listing condition="batch">
+        <div class="entries" metal:define-slot="entries">
+          <tal:repeat repeat="item batch" metal:define-macro="entries">
+              <metal:block define-slot="entry">
+                <div class="news-block-four">
+                    <div class="inner-box">
+                        <div class="row clearfix">
+                            <div class="content-box col-md-8 col-sm-8 col-xs-12">
+                                <h3>${item/Title}</h3>
+                                <p>${item/Description}</p>
+                                <div class="content-inner" 
+                                    tal:define="youtube python: item.getObject().url"
+                                    tal:content="structure youtube">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </metal:block>
+          </tal:repeat>
+        </div>
+
+        <div metal:use-macro="context/batch_macros/macros/navigation" />
+
+      </tal:listing>
+
+    </tal:results>
+  </metal:listingmacro>
+
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>

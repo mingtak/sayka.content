@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:v-on="http://vuejs.org"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="sayka.content">
+<body>
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+
+<?python
+from plone import api
+portal = api.portal.get()
+abs_url = portal.absolute_url()
+?>
+
+<tal:repeat repeat="item view/shopCart">
+    <tal:findContent define="obj python:api.content.find(id=item[0], context=portal)[0].getObject()">
+        <div>
+            圖片<img src="${obj/absolute_url}/@@images/image_1/mini" alt=""/>            
+            名稱：${obj/title}
+            數量：${python:item[1]}
+            價格:${obj/sale_price}
+            <button data-item_id="${obj/id}">刪除</button>
+        </div>
+    </tal:findContent>
+</tal:repeat>
+<h1>
+<a href="${abs_url}/billing">填寫資料</a>
+</h1>
+<script>
+$(document).ready(function () {
+    $('button').click(function(){
+        item_id = $(this).data()['item_id']
+        data = {
+            'item_id': item_id,
+            action: 'del'
+        }
+        url = location.href.replace('confirm_cart', 'cart_update')
+        $.ajax({
+            type: "post",
+            url: url,
+            data: data,
+            success: function (response) {
+                if(response == 'remove success'){
+                    location.reload()
+                }
+            }
+        });
+    })
+});
+</script>
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>

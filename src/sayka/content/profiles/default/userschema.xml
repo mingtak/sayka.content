@@ -1,0 +1,69 @@
+<model xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:lingua="http://namespaces.plone.org/supermodel/lingua" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:users="http://namespaces.plone.org/supermodel/users" xmlns="http://namespaces.plone.org/supermodel/schema" i18n:domain="mingtak.custom">
+  <schema name="member-fields">
+
+    <field name="city" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_city">
+          Member's city name.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_city">City</title>
+    </field>
+
+    <field name="district" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_district">
+          Member's district name.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_district">District</title>
+    </field>
+
+    <field name="zip" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_zip">
+          Member's ZIP code.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_zip">ZIP</title>
+    </field>
+
+    <field name="address" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_address">
+          Member's detail address.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_address">Address</title>
+    </field>
+
+    <field name="promotion" type="zope.schema.Bool" users:forms="In User Profile">
+      <description i18n:translate="help_promotion">
+          Member's allowed promotion.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_promotion">Promotion</title>
+    </field>
+
+    <field name="phoneNo" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_phoneNo">
+          Member's Phone number.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_phoneNo">Phone Number</title>
+    </field>
+
+    <field name="cellNo" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_cellNo">
+          Member's Cell Number.
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_cellNo">Cell Number</title>
+    </field>
+
+    <field name="regFrom" type="zope.schema.TextLine" users:forms="In User Profile">
+      <description i18n:translate="help_regFrom">
+          Where is member registry from. (fb, gg, reg)
+      </description>
+      <required>False</required>
+      <title i18n:translate="label_regFrom">Registry From</title>
+    </field>
+
+  </schema>
+</model>

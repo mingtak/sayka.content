@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="sayka.content">
+<body>
+
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+    <table>
+        <tr>
+            <th>交易編號</th>
+            <th>交易明細</th>
+            <th>金額</th>
+            <th>付款方式</th>
+            <th>交易日期</th>
+            <th>截止日期</th>
+            <th>送達時間</th>
+            <th>取或方式</th>
+            <th>付款狀況</th>
+            <th>物流狀況</th>
+            <th>物流更新時間</th>
+        </tr>
+        <tal:repeat define="order_data view/order_data" repeat="sort_tradeno view/sort_tradeno">
+            <tr>
+                <th>${sort_tradeno}</th>
+                <td>${python:order_data[sort_tradeno]['detail']}</td>
+                <td>${python:order_data[sort_tradeno]['total_amount']}</td>
+                <td>${python:order_data[sort_tradeno]['PaymentType']}</td>
+                <td>${python:order_data[sort_tradeno]['TradeDate']}</td>
+                <td>${python:order_data[sort_tradeno]['ExpireDate']}</td>
+                <td>${python:order_data[sort_tradeno]['send_time']}</td>
+                <td>${python:order_data[sort_tradeno]['send_type']}</td>
+                <td>${python:order_data[sort_tradeno]['status']}</td>
+                <td tal:condition="python:order_data[sort_tradeno]['message']">
+                    ${python:order_data[sort_tradeno]['message']}
+                </td>
+                <td tal:condition="not:python:order_data[sort_tradeno]['message']">
+                <?python
+                    from plone import api
+                    abs_url = api.portal.get().absolute_url()
+                ?>
+                    <form id="allPay-Form" name="allPayForm" method="post" target="_self" action="${abs_url}/logistics_map" style="disply: none;">
+                        <input type='hidden' name='MerchantTradeNo' value='${sort_tradeno}' />
+                        <input type="submit" class="large" id="payment-btn" value="補齊物流資訊"/>
+                    </form>
+                </td>
+                <td>${python:order_data[sort_tradeno]['UpdateStatusDate']}</td>
+            </tr>
+        </tal:repeat>
+    </table>
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>

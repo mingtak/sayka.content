@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="sayka.content">
+
+    <subscriber
+        for="sayka.content.interfaces.IYoutube 
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".event.move_to_top"
+    />
+    <subscriber
+        for="sayka.content.interfaces.IProduct 
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".event.move_to_top"
+    />
+    <subscriber
+        for="sayka.content.interfaces.INews 
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".event.move_to_top"
+    />
+
+
+</configure>

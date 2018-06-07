@@ -1,0 +1,178 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="sayka.content">
+<body>
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+<?python
+from plone import api
+portal = api.portal.get()
+portal_url = portal.absolute_url()
+?>
+
+<h3 i18n:translate="">Billing</h3>
+<form action="check_profile" method="post">
+    <table>
+        <tr>
+            <th>取或時間:</th>
+            <td>
+                <input type="radio" name="send_time" value="morning"/>早上09:00~12:00
+                <input type="radio" name="send_time" value="afternoon"/>下午12:00~17:00
+            </td>
+        </tr>
+        <tr>
+            <th>取或方式</th>
+            <td>
+                <input type="radio" name="send_type" value="CVS"/>超商付款
+                <input type="radio" name="send_type" value="Home"/>宅配
+            </td>
+        </tr>
+    <!-- 訂購人 -->
+        <tr>
+            <th>訂購人</th>
+            <td>姓名</td>
+            <td><input type="text" name="buyer_name" id="buyer_name" value="${view/user_name}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>E-mail</td> <td><input type="text" name="buyer_email" id="buyer_email" value="${view/user_email}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>聯絡市話 </td><td><input type="text" name="buyer_phoneNo" id="buyer_phoneNo" value="${view/user_phoneNo}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>聯絡手機 </td><td><input type="text" name="buyer_cellNo" id="buyer_cellNo" value="${view/user_cellNo}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>地址 <!-- 使用者的縣 -->
+                    <select name="buyer_city" id="buyer_city" data-default="${view/user_city}">
+                        <option>請選擇縣市</option>
+                        <option tal:repeat="city view/city" value="${city}">${city}</option>
+                    </select>
+                    <!-- 使用者的市 -->
+                    <select name="buyer_district" id="buyer_district" data-default="${view/user_district}">
+                        <option>請選擇縣市</option>
+                        <option tal:repeat="dist_set view/user_dist_list"
+                                value="${python:dist_set[0]}" 
+                                data-district="${python:dist_set[1]}">${python:dist_set[0]}</option>
+                    </select>
+                    <input type="text" id="buyer_zip" name="buyer_zip" value="${view/user_zip}"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text" name="buyer_address" id="buyer_address" value="${view/user_address}"/></td>
+        </tr>
+
+    <!-- 訂購人 -->
+    <!-- 收件人 -->
+        <tr>
+            <th>收件人</th>
+            <td>
+                <select id="receiver">
+                    <option value="">選擇通訊錄</option>
+                </select>
+            </td>
+            <td><input type="checkbox" class="same_with_buyer" data-same="receiver" />同訂購人資料</td>
+            <td><input type="checkbox" name="add_receiver"/>加入或更新常用通訊錄</td>
+        </tr>
+        <tr> 
+            <td></td>
+            <td>姓名</td>
+            <td><input type="text" name="receiver_name" id="receiver_name"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>E-mail</td> <td><input type="text" name="receiver_email" id="receiver_email"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>聯絡市話 </td><td><input type="text" name="receiver_phoneNo" id="receiver_phoneNo"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>聯絡手機 </td><td><input type="text" name="receiver_cellNo" id="receiver_cellNo"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>地址<select name="receiver_city" id="receiver_city" >
+                        <option>請選擇縣市</option>
+                        <option tal:repeat="city view/city" value="${city}">${city}</option>
+                    </select>
+                    <select name="receiver_district" id="receiver_district">
+                    </select>
+                    <input type="text" name="receiver_zip" id="receiver_zip"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text" name="receiver_address" id="receiver_address"/></td>
+        </tr>
+
+    <!-- 收件人 -->
+    <!-- 發票 -->
+
+        <tr>
+            <th>發票資訊：</th>
+            <td><input type="radio" name="invoice_type" value="invoice_three"/>三聯式發票</td>
+            <td><input type="radio" name="invoice_type" value="invoice_two"/>二聯式發票</td>
+            <td><input type="checkbox" name="add_invoice"/>加入或更新常用通訊錄</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <select id="invoice">
+                    <option value="">選擇通訊錄</option>
+                    
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>發票統編</td><td><input type="text" name="invoice_code" id="invoice_code"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>發票抬頭</td><td><input type="text" name="invoice_name" id="invoice_name"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>寄送地址<input type="checkbox" class="same_with_buyer" data-same="invoice"/>同訂購人資料</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><select name="invoice_city" id="invoice_city" >
+                        <option>請選擇縣市</option>
+                        <option tal:repeat="city view/city" value="${city}">${city}</option>
+                </select>
+                <select name="invoice_district" id="invoice_district">
+                </select>
+                <input type="text" name="invoice_zip" id="invoice_zip"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text" name="invoice_address" id="invoice_address"/></td>
+        </tr>
+
+    <!-- 發票 -->
+    </table>
+
+    <input type="submit" value="結帳"/>
+</form>
+<script src="${portal_url}/++plone++sayka.content/billing.js"></script>
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:v-on="http://vuejs.org"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="sayka.content">
+<body>
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+
+<?python
+from plone import api
+abs_url = api.portal.get().absolute_url()
+?>
+
+<div tal:repeat="content view/context/contentValues">
+
+    <a href="${content/absolute_url}">
+        <h2>${content/title}</h2>
+    </a>
+    
+    <h4>${content/sale_price}</h4>
+    <img src="${content/absolute_url}/@@images/cover_1/mini" alt=""/>
+    <img src="${content/absolute_url}/@@images/cover_2/mini" alt=""/>
+    <a href="${abs_url}/cart_update?item_id=${content/id}&action=add">加入購物車</a>
+</div>
+
+<a href="${abs_url}/confirm_cart">
+    <h1>結帳去</h1>
+</a>
+<script src="${abs_url}/++plone++sayka.content/vue.js"></script>
+<script src="${abs_url}/++plone++sayka.content/shopCart.js"></script>
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
