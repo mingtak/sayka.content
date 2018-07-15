@@ -112,7 +112,7 @@
         for='*'
         class='.views.AllOrderStatus'
         layer="sayka.content.interfaces.ISaykaContentLayer"
-        permission='zope2.View'
+        permission='cmf.ManagePortal'
       />
 
     <browser:page

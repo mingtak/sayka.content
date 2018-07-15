@@ -271,7 +271,12 @@ class OrderStatus(BrowserView):
             self.request.response.redirect('%s/login' %api.portal.get().absolute_url())
             api.portal.show_message('%s' % '請先登入'.decode('utf-8'), self.request, 'error')
             return
-        user_id = api.user.get_current().getUserId()
+        try:
+            user_id = api.user.get_current().getUserId()
+        except:
+            if 'Manager' in api.user.get_current().getRoles():
+                self.request.response.redirect('%s/all_order_status' %api.portal.get().absolute_url())
+                return
         execSql = SqlObj()
         execStr = """SELECT order_set.*,ec_pay.* FROM `order_set`,ec_pay WHERE 
             order_set.user_id = '{}' AND ec_pay.MerchantTradeNo = order_set.MerchantTradeNo

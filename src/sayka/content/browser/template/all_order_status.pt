@@ -40,14 +40,7 @@
                     ${python:order_data[sort_tradeno]['message']}
                 </td>
                 <td tal:condition="not:python:order_data[sort_tradeno]['message']">
-                <?python
-                    from plone import api
-                    abs_url = api.portal.get().absolute_url()
-                ?>
-                    <form id="allPay-Form" name="allPayForm" method="post" target="_self" action="${abs_url}/logistics_map" style="disply: none;">
-                        <input type='hidden' name='MerchantTradeNo' value='${sort_tradeno}' />
-                        <input type="submit" class="large" id="payment-btn" value="補齊物流資訊"/>
-                    </form>
+                    買家尚未選取物流
                 </td>
                 <td>${python:order_data[sort_tradeno]['UpdateStatusDate']}</td>
             </tr>
