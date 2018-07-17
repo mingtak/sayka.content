@@ -17,6 +17,13 @@
       type="plone"
       directory="static"
       />
+  <browser:page
+      name='delete_order'
+      for='*'
+      class='.views.DeleteOrder'
+      layer="sayka.content.interfaces.ISaykaContentLayer"
+      permission='zope2.View'
+      />
 
   <browser:page
       name='product_view'

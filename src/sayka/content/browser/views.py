@@ -110,66 +110,31 @@ class CheckProfile(BrowserView):
         buyer_name = request.get('buyer_name')
         buyer_email = request.get('buyer_email')
         buyer_address = request.get('buyer_address')
-        receiver_name = request.get('receiver_name', '')
-        receiver_city = request.get('receiver_city', '')
-        receiver_district = request.get('receiver_district', '')
-        receiver_zip = request.get('receiver_zip', '')
-        receiver_address = request.get('receiver_address', '')
-        receiver_phoneNo = request.get('receiver_phoneNo', '')
-        receiver_cellNo = request.get('receiver_cellNo', '')
-        receiver_email = request.get('receiver_email', '')
-        send_time = request.get('send_time', '')
-        send_type = request.get('send_type', '')
-        invoice_district = request.get('invoice_district', '')
-        invoice_zip = request.get('invoice_zip', '')
-        invoice_city = request.get('invoice_city', '')
+
         invoice_code = request.get('invoice_code', '')
         invoice_name = request.get('invoice_name', '')
-        invoice_address = request.get('invoice_address', '')
         invoice_type = request.get('invoice_type', '')
 
         user_id = api.user.get_current().getUserId()
         user_name = api.user.get_current().getUserName()
         user = api.user.get(user_name)
 
-        # if user_name == buyer_name:
-        #     user.setMemberProperties(mapping={
-        #                                         'city': buyer_city,
-        #                                         'district': buyer_district,
-        #                                         'zip': buyer_zip,
-        #                                         'cellNo': buyer_cellNo,
-        #                                         'phoneNo': buyer_phoneNo,
-        #                                         'email': buyer_email,
-        #                                         'address': buyer_address
-        #                                     })
-
-        # 寫進發票的常用資料庫
-        add_invoice = request.get('add_invoice', '')
-        execStr = """SELECT id FROM invoice_set WHERE user_id = '{}' AND invoice_name = '{}' 
-            AND invoice_city = '{}' AND invoice_district = '{}' AND invoice_zip = '{}' 
-            AND invoice_address = '{}' AND invoice_code = '{}' AND invoice_type = '{}' 
-            AND address_book = '{}'""".format(user_id, invoice_name, 
-            invoice_city,invoice_district, invoice_zip, invoice_address, invoice_code,
-            invoice_type, add_invoice)
+        execStr = """SELECT id FROM invoice_set WHERE user_id = '{}' AND
+            invoice_name = '{}' AND invoice_code = '{}' AND invoice_type = '{}'
+            """.format(user_id, invoice_name, invoice_code, invoice_type)
         invoice_result = execSql.execSql(execStr)
         if not invoice_result:
-            # 寫進資料庫及判斷要不要加進常用通訊錄
-            execStr = """INSERT INTO invoice_set(user_id,invoice_name,invoice_city,invoice_district,
-                invoice_zip,invoice_address,invoice_code,invoice_type,address_book) 
-                VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}')""".format(user_id, 
-                invoice_name, invoice_city, invoice_district, invoice_zip, invoice_address, 
-                invoice_code, invoice_type, add_invoice)
+            # 寫進發票的常用資料庫
+            execStr = """INSERT INTO invoice_set(user_id,invoice_name, invoice_code, invoice_type) 
+                VALUES('{}','{}','{}','{}')""".format(user_id, invoice_name, invoice_code, invoice_type)
             execSql.execSql(execStr)
             # 抓剛剛寫進的id
-            execStr = """SELECT id FROM invoice_set WHERE user_id = '{}' AND 
-                invoice_name = '{}' AND invoice_city = '{}' AND invoice_district = '{}' AND 
-                invoice_zip = '{}'  AND invoice_address = '{}' AND invoice_code = '{}' 
-                AND invoice_type = '{}' AND address_book = '{}'
-                """.format(user_id, invoice_name, invoice_city, invoice_district, invoice_zip, 
-                invoice_address, invoice_code, invoice_type, add_invoice)
+            execStr = """SELECT id FROM invoice_set WHERE user_id = '{}' AND
+                invoice_name = '{}' AND invoice_code = '{}' AND invoice_type = '{}'
+                """.format(user_id, invoice_name, invoice_code, invoice_type)
             invoice_result = execSql.execSql(execStr)
 
-        # 訂購人寫進資料庫
+
         execStr = """SELECT id FROM buyer_set WHERE user_id = '{}' AND 
             buyer_name = '{}' AND buyer_city = '{}' AND buyer_district = '{}' AND 
             buyer_zip = '{}' AND buyer_address = '{}' AND buyer_phoneNo = '{}' AND
@@ -180,45 +145,19 @@ class CheckProfile(BrowserView):
         if not buyer_result:
             # 寫進資料庫
             execStr = """INSERT INTO buyer_set(user_id,buyer_name,buyer_city,buyer_district,
-                buyer_zip,buyer_address,buyer_phoneNo,buyer_cellNo,buyer_email) 
-                VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}')""".format(user_id, 
+                buyer_zip,buyer_address,buyer_phoneNo,buyer_cellNo,buyer_email)
+                VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}')""".format(user_id,
                 buyer_name, buyer_city, buyer_district, buyer_zip, buyer_address, buyer_phoneNo,
                 buyer_cellNo, buyer_email)
             execSql.execSql(execStr)
             # 抓剛剛寫進的id
-            execStr = """SELECT id FROM buyer_set WHERE user_id = '{}' AND 
-                buyer_name = '{}' AND buyer_city = '{}' AND buyer_district = '{}' AND 
+            execStr = """SELECT id FROM buyer_set WHERE user_id = '{}' AND
+                buyer_name = '{}' AND buyer_city = '{}' AND buyer_district = '{}' AND
                 buyer_zip = '{}' AND buyer_address = '{}' AND buyer_phoneNo = '{}' AND
                 buyer_cellNo = '{}' AND buyer_email = '{}'
-                """.format(user_id, buyer_name, buyer_city, buyer_district, buyer_zip, buyer_address, 
+                """.format(user_id, buyer_name, buyer_city, buyer_district, buyer_zip, buyer_address,
                 buyer_phoneNo, buyer_cellNo, buyer_email)
             buyer_result = execSql.execSql(execStr)
-
-        # 收件人寫進資料庫
-        add_receiver = request.get('add_receiver', '')
-        execStr = """SELECT id FROM receiver_set WHERE user_id = '{}' AND receiver_name = '{}' 
-            AND receiver_city = '{}' AND receiver_district = '{}' AND receiver_zip = '{}' 
-            AND receiver_address = '{}' AND receiver_phoneNo = '{}' AND receiver_cellNo = '{}' 
-            AND receiver_email = '{}' AND address_book = '{}'""".format(user_id, receiver_name, 
-            receiver_city, receiver_district, receiver_zip, receiver_address, receiver_phoneNo, 
-            receiver_cellNo, receiver_email, add_receiver)
-        receiver_result = execSql.execSql(execStr)
-        if not receiver_result:
-            # 寫進資料庫及判斷要不要加進常用通訊錄
-            execStr = """INSERT INTO receiver_set(user_id,receiver_name,receiver_city,receiver_district,
-                receiver_zip,receiver_address,receiver_phoneNo,receiver_cellNo,receiver_email,address_book) 
-                VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')""".format(user_id, 
-                receiver_name, receiver_city, receiver_district, receiver_zip, receiver_address, receiver_phoneNo,
-                receiver_cellNo, receiver_email, add_receiver)
-            execSql.execSql(execStr)
-            # 抓剛剛寫進的id
-            execStr = """SELECT id FROM receiver_set WHERE user_id = '{}' AND 
-                receiver_name = '{}' AND receiver_city = '{}' AND receiver_district = '{}' AND 
-                receiver_zip = '{}' AND receiver_address = '{}' AND receiver_phoneNo = '{}' AND
-                receiver_cellNo = '{}' AND receiver_email = '{}' AND address_book = '{}'
-                """.format(user_id, receiver_name, receiver_city, receiver_district, receiver_zip, receiver_address, 
-                receiver_phoneNo, receiver_cellNo, receiver_email, add_receiver)
-            receiver_result = execSql.execSql(execStr)
 
         # 拿購物車的資料
         item = json.loads(request.cookies.get('shopCart'))
@@ -243,13 +182,11 @@ class CheckProfile(BrowserView):
                     'amount': amount
                 })
         buyer_id = dict(buyer_result[0])['id']
-        receiver_id = dict(receiver_result[0])['id']
         invoice_id = dict(invoice_result[0])['id']
         MerchantTradeNo = int(time.time())
-        execStr = """INSERT INTO order_set(MerchantTradeNo,user_id,buyer_id,receiver_id,invoice_id,detail,
-            total_amount,send_time,send_type) VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}')""".format(
-            MerchantTradeNo, user_id, buyer_id, receiver_id, invoice_id, detail, total_amount
-            , send_time, send_type)
+        execStr = """INSERT INTO order_set(MerchantTradeNo, user_id, buyer_id, invoice_id, detail, total_amount) VALUES
+            ('{}','{}','{}','{}','{}','{}')""".format(
+            MerchantTradeNo, user_id, buyer_id, invoice_id, detail, total_amount)
         execSql.execSql(execStr)
 
         form_html = '<form id="allPay-Form" name="allPayForm" method="post" target="_self" action="%s/pay" style="display: none;">' %api.portal.get().absolute_url()
@@ -355,8 +292,9 @@ class AllOrderStatus(BrowserView):
             self.request.response.redirect(api.portal.get().absolute_url()/login)
 	    return
     	execSql = SqlObj()
-        execStr = """SELECT order_set.*,ec_pay.* FROM `order_set`,ec_pay WHERE 
-            ec_pay.MerchantTradeNo = order_set.MerchantTradeNo"""
+        execStr = """SELECT order_set.*,ec_pay.*,invoice_set.*,buyer_set.* FROM `order_set`,ec_pay,invoice_set,buyer_set WHERE 
+            ec_pay.MerchantTradeNo = order_set.MerchantTradeNo AND order_set.buyer_id = buyer_set.id 
+            AND order_set.invoice_id = invoice_set.id AND ec_pay.flag = 0"""
         result = execSql.execSql(execStr)
 
         order_data = {}
@@ -364,27 +302,21 @@ class AllOrderStatus(BrowserView):
             tmp = dict(item)
             MerchantTradeNo = tmp['MerchantTradeNo']
             detail = tmp['detail']
-            PaymentType = tmp['PaymentType']
+            TradeNo = tmp['TradeNo']
             TradeDate = tmp['TradeDate']
-            ExpireDate = tmp['ExpireDate']
             PaymentDate = tmp['PaymentDate']
             total_amount = '%s NT' % tmp['total_amount']
             MerchantID = tmp['MerchantID']
-
-            if tmp['send_time'] == 'morning':
-                send_time = '早上'
-            elif tmp['send_time'] == 'afternoon':
-                send_time = '下午'
-
-            if tmp['send_type'] == 'CVS':
-                send_type = '超商取或'
-            elif tmp['send_type'] == 'Home':
-                send_type = '宅配'
-
-            if tmp['status'] == 'paid':
-                status = '以付款'
-            elif tmp['status'] == 'not_pay':
-                status = '尚未付款'
+            status = tmp['status']
+            buyer_name = tmp['buyer_name']
+            buyer_city = tmp['buyer_city']
+            buyer_district = tmp['buyer_district']
+            buyer_zip = tmp['buyer_zip']
+            buyer_address = tmp['buyer_address']
+            buyer_cellNo = tmp['buyer_cellNo']
+            buyer_phoneNo = tmp['buyer_phoneNo']
+            invoice_code = tmp.get('invoice_code', '')
+            invoice_name = tmp['invoice_name']
             # 抓物流訊息
             execStr = """SELECT logistics_set.*,RtnCode_set.message FROM `RtnCode_set`,
                 logistics_set WHERE logistics_set.MerchantTradeNo='{}' and logistics_set.RtnCode = 
@@ -400,19 +332,37 @@ class AllOrderStatus(BrowserView):
 
             order_data[MerchantTradeNo] = {
                 'MerchantID': MerchantID,
+                'TradeNo': TradeNo,
                 'detail': detail,
                 'total_amount': total_amount,
-                'send_time': send_time,
-                'send_type': send_type,
-                'ExpireDate': ExpireDate,
-                'PaymentType': PaymentType,
                 'TradeDate': TradeDate,
                 'PaymentDate': PaymentDate,
                 'message': message,
+                'UpdateStatusDate': UpdateStatusDate,
                 'status': status,
-                'UpdateStatusDate': UpdateStatusDate
+                'buyer_inform': '%s%s/%s' %(buyer_name,buyer_cellNo, buyer_phoneNo),
+                'buyer_name': buyer_name,
+                'buyer_cellNo': buyer_cellNo,
+                'buyer_phoneNo': buyer_phoneNo,
+                'buyer_address': '%s%s%s%s' %(buyer_zip, buyer_city, buyer_district, buyer_address),
+                'invoice_name': invoice_name,
+                'invoice_code': invoice_code,
             }
         self.sort_tradeno = sorted(order_data,  reverse=True)
         self.order_data = order_data
         return self.template()
+
+
+class DeleteOrder(BrowserView):
+    template = ViewPageTemplateFile('template/all_order_status.pt')
+    def __call__(self):
+        request = self.request
+        MerchantTradeNo = request.get('MerchantTradeNo', '')
+        TradeNo = request.get('TradeNo', '')
+        if MerchantTradeNo and TradeNo:
+            execSql = SqlObj()
+            execStr = """UPDATE ec_pay SET flag = 1 WHERE MerchantTradeNo = '{}' AND TradeNo = '{}'""".format(MerchantTradeNo, TradeNo)
+            execSql.execSql(execStr)
+            request.response.redirect('%s/all_order_status' %(api.portal.get().absolute_url()))
+            return
 
