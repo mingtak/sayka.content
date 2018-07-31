@@ -41,7 +41,7 @@
                                     <h3>${item_title}</h3>
                                     <p>${python:item.getObject().question}</p>
                                     <p>妙元答道</p>
-                                    <p><p>${python:item.getObject().answer}</p></p>
+                                    <p>${python:item.getObject().answer}</p>
                                 </div>
                             </div>
                         </div>

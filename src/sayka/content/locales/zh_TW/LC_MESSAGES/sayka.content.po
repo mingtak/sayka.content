@@ -1,6 +1,3 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,129 +12,129 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: sayka.content\n"
+"Domain: DOMAIN\n"
 
 #: ./interfaces.py:26
 msgid "Answer"
-msgstr ""
+msgstr "回答"
 
 #: ./interfaces.py:219
 msgid "Background image 1"
-msgstr ""
+msgstr "背景圖片1"
 
 #: ./interfaces.py:223
 msgid "Background image 2"
-msgstr ""
+msgstr "背景圖片2"
 
 #: ./interfaces.py:184
 msgid "Banner image."
-msgstr ""
+msgstr "橫幅圖片"
 
 #: ./interfaces.py:157
 msgid "Banner1 Image."
-msgstr ""
+msgstr "橫幅圖片"
 
 #: ./interfaces.py:149
 msgid "Banner1 Title"
-msgstr ""
+msgstr "橫幅圖片1 標題"
 
 #: ./interfaces.py:170
 msgid "Banner2 Image."
-msgstr ""
+msgstr "橫幅圖片2"
 
 #: ./interfaces.py:162
 msgid "Banner2 Title"
-msgstr ""
+msgstr "橫幅圖片2 標題"
 
 #: ./interfaces.py:183
 msgid "Banner3 Image."
-msgstr ""
+msgstr "橫幅圖片3"
 
 #: ./interfaces.py:175
 msgid "Banner3 Title"
-msgstr ""
+msgstr "橫幅圖片3 標題"
 
 #: ./interfaces.py:197
 msgid "Banner4 Image."
-msgstr ""
+msgstr "橫幅圖片4"
 
 #: ./interfaces.py:189
 msgid "Banner4 Title"
-msgstr ""
+msgstr "橫幅圖片4 標題"
 
 #: ./interfaces.py:211
 msgid "Banner5 Image."
-msgstr ""
+msgstr "橫幅圖片5"
 
 #: ./interfaces.py:203
 msgid "Banner5 Title"
-msgstr ""
+msgstr "橫幅圖片5 標題"
 
 #: ./browser/template/billing.pt:19
 msgid "Billing"
-msgstr ""
+msgstr "結帳"
 
 #: ./profiles/default/types/Cover.xml
 msgid "Cover"
-msgstr ""
+msgstr "首頁封面"
 
 #: ./interfaces.py:216
 msgid "Cover Background Images"
-msgstr ""
+msgstr "首頁背景圖片"
 
 #: ./interfaces.py:227
 msgid "Cover Footer Slider"
-msgstr ""
+msgstr "首頁頁腳Slider"
 
 #: ./interfaces.py:60
 msgid "Cover Image."
-msgstr ""
+msgstr "首頁圖片"
 
 #: ./interfaces.py:61
 msgid "Cover image."
-msgstr ""
+msgstr "首頁圖片"
 
 #: ./interfaces.py:75
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ./interfaces.py:80
 msgid "Detail for product"
-msgstr ""
+msgstr "產品詳述"
 
 #: ./interfaces.py:153
 msgid "Dsecription1"
-msgstr ""
+msgstr "描述1"
 
 #: ./interfaces.py:166
 msgid "Dsecription2"
-msgstr ""
+msgstr "描述2"
 
 #: ./interfaces.py:179
 msgid "Dsecription3"
-msgstr ""
+msgstr "描述3"
 
 #: ./interfaces.py:193
 msgid "Dsecription4"
-msgstr ""
+msgstr "描述4"
 
 #: ./interfaces.py:207
 msgid "Dsecription5"
-msgstr ""
+msgstr "描述5"
 
 #: ./profiles/default/types/Cover.xml
 #: ./profiles/default/types/News.xml
 #: ./profiles/default/types/Product.xml
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: ./interfaces.py:237
 msgid "Footer Slider Description"
-msgstr ""
+msgstr "頁腳Slider描述"
 
 #: ./interfaces.py:233
 msgid "Footer Slider."
-msgstr ""
+msgstr "頁腳Slider"
 
 #: ./configure.zcml:20
 msgid "Installs the sayka.content add-on."
@@ -145,23 +142,23 @@ msgstr ""
 
 #: ./interfaces.py:95
 msgid "Product Image."
-msgstr ""
+msgstr "產品圖片"
 
 #: ./interfaces.py:96
 msgid "Product image for header."
-msgstr ""
+msgstr "產品圖片(大圖)"
 
 #: ./interfaces.py:102
 msgid "Product image."
-msgstr ""
+msgstr "產品圖片"
 
 #: ./interfaces.py:84
 msgid "Sale price"
-msgstr ""
+msgstr "售價"
 
 #: ./interfaces.py:85
 msgid "Sale price for the product"
-msgstr ""
+msgstr "產品售價"
 
 #: ./profiles/default/types/Task.xml
 msgid "Task"
@@ -169,7 +166,7 @@ msgstr ""
 
 #: ./interfaces.py:18
 msgid "Title"
-msgstr ""
+msgstr "標題"
 
 #: ./configure.zcml:29
 msgid "Uninstalls the sayka.content add-on."

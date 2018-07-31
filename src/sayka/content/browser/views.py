@@ -99,6 +99,11 @@ class Billing(BrowserView):
 
 class CheckProfile(BrowserView):
     def __call__(self):
+
+        if 'Manager' in api.user.get_roles():
+            self.request.response.redirect(api.portal.get().absolute_url())
+            return
+
         execSql = SqlObj()
 
         request = self.request

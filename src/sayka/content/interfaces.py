@@ -93,7 +93,7 @@ class IProduct(Interface):
 
     image_1 = NamedBlobImage(
         title=_(u"Product Image."),
-        description=_(u"Product image for header."),
+        description=_(u"Product image."),
         required=False,
     )
 
@@ -117,7 +117,7 @@ class IProduct(Interface):
 
     image_5 = NamedBlobImage(
         title=_(u"Product Image."),
-        description=_(u"Product image for header."),
+        description=_(u"Product image."),
         required=False,
     )
 

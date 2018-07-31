@@ -130,5 +130,14 @@
         permission='zope2.View'
       />
 
+  <!-- custom.css -->
+  <browser:page
+      name="custom_css"
+      for="*"
+      class=".css.CustomCSS"
+      layer="sayka.content.interfaces.ISaykaContentLayer"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>
 
