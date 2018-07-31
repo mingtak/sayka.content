@@ -5,6 +5,23 @@
     name="Folder"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
+  <property name="allowed_content_types">
+    <element value="Document"/>
+    <element value="Collection"/>
+    <element value="Folder"/>
+    <element value="Link"/>
+    <element value="File"/>
+    <element value="Image"/>
+    <element value="News Item"/>
+    <element value="Event"/>
+    <element value="Product"/>
+    <element value="Static"/>
+    <element value="Story"/>
+    <element value="Youtube"/>
+    <element value="News"/>
+  </property>
+
+
   <property name="view_methods">
     <element value="album_view"/>
     <element value="event_listing"/>
