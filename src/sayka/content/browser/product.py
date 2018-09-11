@@ -13,6 +13,11 @@ class ProductView(BrowserView):
         result = api.content.find(context=portal['shopping_listing'], portal_type="Product"
             ,sort_on='created', sort_order='descending', sort_limit=8)
         self.result = result
+        count = 0
+        for i in range(1, 9):
+            if getattr(context, 'image_%s' %(i)):
+                count += 1
+        self.count = count
         return self.template()
 
 
