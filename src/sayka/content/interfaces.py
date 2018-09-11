@@ -140,6 +140,18 @@ class IProduct(Interface):
     )
 
 class ICover(Interface):
+
+    fieldset(_(u'Cover Header Images'),
+             fields=['header_1', 'header_2'])
+    header_1 = NamedBlobImage(
+        title=_(u'Header image 1'),
+        required=True,
+    )
+    header_2 = NamedBlobImage(
+        title=_(u'Header image 2'),
+        required=True,
+    )
+
     title = schema.TextLine(
         title=_(u'Title'),
         required=True
